@@ -10,18 +10,22 @@
  */
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 vector<int> twoSum(vector<int>& nums, int target) {
     vector<int> result;
-    for (unsigned int i = 0; i < nums.size() - 1; ++i) {
-        for (unsigned int j =  i + 1; j < nums.size(); ++j) {
-            if (nums.at(i) + nums.at(j) == target) {
-                result.push_back(i);
-                result.push_back(j);
-                return result;
-            }
+    std::unordered_map<int, int> hash;
+    for (unsigned int i = 0; i < nums.size(); ++i) {
+        hash[nums.at(i)] = i;
+    }
+    for (unsigned int i = 0; i < nums.size(); ++i) {
+        int complement = target - nums.at(i);
+        if (hash.find(complement) != hash.end() && hash[complement] != i) {
+            result.push_back(i);
+            result.push_back(hash[complement]);
+            return result;
         }
     }
     return result;
