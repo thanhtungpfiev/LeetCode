@@ -18,15 +18,13 @@ vector<int> twoSum(vector<int>& nums, int target) {
     vector<int> result;
     std::unordered_map<int, int> hash;
     for (unsigned int i = 0; i < nums.size(); ++i) {
-        hash[nums.at(i)] = i;
-    }
-    for (unsigned int i = 0; i < nums.size(); ++i) {
         int complement = target - nums.at(i);
-        if (hash.find(complement) != hash.end() && hash[complement] != i) {
-            result.push_back(i);
+        if (hash.find(complement) != hash.end()) {
             result.push_back(hash[complement]);
+            result.push_back(i);
             return result;
         }
+        hash[nums.at(i)] = i;
     }
     return result;
 }
